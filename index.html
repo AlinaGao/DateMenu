@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>date menu</title>
+		<link type="text/css" rel="stylesheet" href="css/style.css" />
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript">
+			$(function(){
+//				div2
+				var dt1 = new Date();
+				var a = dt1.getFullYear();
+				var b = dt1.getMonth() + 1;
+				$("#div2 a:eq(1)").text(a + " 年");
+				$("#div2 a:eq(2)").text(b + " 月");
+				
+				
+//				div4
+				var e = "";
+				for (var d = 0; d<42; d++) {
+					e += "<li></li>";	
+				}
+//				alert(e);  //42个li
+				$("#div4 #u2").append(e);
+				
+				var dt2 = new Date();
+				var riqi = dt2.getDate(); 	//1-31
+				var x = dt2.getDay(); 	//0-6
+//				alert(x);
+				var y = Math.floor((riqi-(x+1))/7)+1;		//floor向下取整
+				
+				var dd = 7*y+x;
+				var ee = riqi;
+				var ff = riqi;
+				$("#div4 #u2 li").each(function(n){
+					$("#div4 #u2 li:eq("+(7*y+x)+")").text(riqi);
+					$("#div4 #u2 li:eq("+(7*y+x)+")").css({"font-weight":"bold"});
+					if(n>(7*y+x)){
+						ee++;
+						if(ee>31){
+							$("#div4 #u2 li:eq("+(n)+")").css({"color":"#ccc"});
+							ee = 1;
+						}
+						$("#div4 #u2 li:eq("+(n)+")").text(ee);
+					}
+					if(n<(7*y+x)){
+						ff--;
+						dd--;
+						if(ff<1){
+							$("#div4 #u2 li:eq("+(dd)+")").css({"color":"#ccc"});
+							ff = 30;
+						}
+						$("#div4 #u2 li:eq("+(dd)+")").text(ff);
+					}
+				});
+
+
+//				div5
+				function shizh(){
+					var dt3 = new Date();
+					var c = new Array();
+					c[0] = dt3.getHours();
+					c[1] = dt3.getMinutes();
+					c[2] = dt3.getSeconds();
+					
+					if(c[0]<10){
+						c[0] = "0"+ c[0];
+					}
+					if(c[1]<10){
+						c[1] = "0"+ c[1];
+					}
+					if(c[2]<10){
+						c[2] = "0"+ c[2];
+					}
+					
+					$("#div5").text("本地时间：" + c[0] + ":" + c[1] + ":" + c[2]);
+				}
+				window.setInterval(shizh,1000);
+				shizh();
+			})
+		</script>
+	</head>
+	<body>
+		<div id="div1">
+			<div id="div2">
+				<a href="#"> < </a>
+				<a href="#"></a>
+				<a href="#"></a>
+				<a href="#"> > </a>
+				<a href="#">今天</a>
+			</div>
+			<div id="div3">
+				<span>日</span>
+				<span>一</span>
+				<span>二</span>
+				<span>三</span>
+				<span>四</span>
+				<span>五</span>
+				<span>六</span>
+			</div>
+			<div id="div4">
+				<ul id="u2"></ul>
+			</div>
+			<div id="div5">本地时间</div>
+		</div>
+	</body>
+</html>
